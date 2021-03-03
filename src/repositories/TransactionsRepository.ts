@@ -1,29 +1,17 @@
-import Transaction from '../models/Transaction';
+import Appointment from '../models/Appointments';
+import { EntityRepository, Repository } from 'typeorm';
 
-interface Balance {
-  income: number;
-  outcome: number;
-  total: number;
-}
+@EntityRepository(Appointment)
+class AppointmentsRepository extends Repository<Appointment> {
+  public async findByDate(date: Date): Appointment | null {{
+    const findAppointment = await this.findOne({
+      where: { date },
+    });
 
-class TransactionsRepository {
-  private transactions: Transaction[];
-
-  constructor() {
-    this.transactions = [];
-  }
-
-  public all(): Transaction[] {
-    // TODO
-  }
-
-  public getBalance(): Balance {
-    // TODO
-  }
-
-  public create(): Transaction {
-    // TODO
+    return findAppointment || null;
   }
 }
 
-export default TransactionsRepository;
+// const response = awaiti findByDate(date)
+
+export default AppointmentsRepository;
